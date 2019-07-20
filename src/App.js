@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 
 function App() {
   // Para cada estado temos um useState() separado e não um objeto único
@@ -34,10 +34,18 @@ function App() {
 
   // this.setState atualizava todos os estados de uma vez. Neste caso utilizamos apenas uma função para um estado específico
   // Por continuar sendo imutável, é precisso copiar todas as informações autuais para atualizar (...tech)
-  function handleAdd() {
+  /*
+    function handleAdd() {
+      setTech([...tech, newTech]);
+      setNewTech('');
+    }
+  */
+  // Um problema é que esta função está sendo executada todas as vezes que ocorre uma alteração de estado.
+  // Para evitar isso, utilizamos o useCallback()
+  const handleAdd = useCallback(() => {
     setTech([...tech, newTech]);
     setNewTech('');
-  }
+  }, [newTech, tech]);
 
   // Para evitar que funções em render sejam executadas mais de uma vez, utilizamos o useMemo()
   // O primeiro parametro passado é a função/valor, e o segundo é o estado/variavel a ser monitorada
