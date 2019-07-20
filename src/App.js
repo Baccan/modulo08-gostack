@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 function App() {
   // Para cada estado temos um useState() separado e não um objeto único
@@ -39,6 +39,10 @@ function App() {
     setNewTech('');
   }
 
+  // Para evitar que funções em render sejam executadas mais de uma vez, utilizamos o useMemo()
+  // O primeiro parametro passado é a função/valor, e o segundo é o estado/variavel a ser monitorada
+  const techSize = useMemo(() => tech.length, [tech]);
+
   return (
     <>
       <ul>
@@ -49,6 +53,9 @@ function App() {
       <li>React Native</li>
       <li>Node.js</li> */}
       </ul>
+      {/* <strong>Você tem {tech.length} tecnologias</strong> */}
+      <strong>Você tem {techSize} tecnologias</strong>
+      <br />
       <input value={newTech} onChange={e => setNewTech(e.target.value)} />
       <button type="button" onClick={handleAdd}>
         Adicionar
