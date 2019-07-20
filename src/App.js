@@ -42,6 +42,7 @@ function App() {
   */
   // Um problema é que esta função está sendo executada todas as vezes que ocorre uma alteração de estado.
   // Para evitar isso, utilizamos o useCallback()
+  // Porém, só utilizaremos em funções que usem as variáveis ou propriedades de estado/componente
   const handleAdd = useCallback(() => {
     setTech([...tech, newTech]);
     setNewTech('');
